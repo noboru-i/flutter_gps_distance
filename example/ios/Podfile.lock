@@ -1,0 +1,22 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_gps_distance (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `.symlinks/flutter/ios-release`)
+  - flutter_gps_distance (from `.symlinks/plugins/flutter_gps_distance/ios`)
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: ".symlinks/flutter/ios-release"
+  flutter_gps_distance:
+    :path: ".symlinks/plugins/flutter_gps_distance/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
+  flutter_gps_distance: e990eabf4bb25cb4f6d52c33cc433b8f69e85ec5
+
+PODFILE CHECKSUM: aff02bfeed411c636180d6812254b2daeea14d09
+
+COCOAPODS: 1.5.3
