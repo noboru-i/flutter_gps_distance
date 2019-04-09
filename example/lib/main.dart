@@ -12,39 +12,35 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String startLatitude;
-  String startLongitude;
-  String endLatitude;
-  String endLongitude;
+  String startLatitude = "0";
+  String startLongitude = "0";
+  String endLatitude = "0";
+  String endLongitude = "0";
 
   double distance = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
+  Future<void> _calculateDistance() async {
+    double resultDistance;
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      platformVersion = await FlutterGpsDistance.platformVersion;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      resultDistance = await FlutterGpsDistance.calculateDistance(
+        double.parse(startLatitude),
+        double.parse(startLongitude),
+        double.parse(endLatitude),
+        double.parse(endLongitude),
+      );
+    } on PlatformException catch(e) {
+      print("PlatformException");
+      print(e);
+      resultDistance = 0;
     }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
-      _platformVersion = platformVersion;
+      distance = resultDistance;
     });
   }
 
@@ -110,17 +106,14 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  void _handleSubmitted() {
+  void _handleSubmitted() async {
     _formKey.currentState.save();
 
-    // TODO
     print("startLatitude: " + startLatitude);
     print("startLongitude: " + startLongitude);
     print("endLatitude: " + endLatitude);
     print("endLongitude: " + endLongitude);
 
-    setState(() {
-      distance += 1;
-    });
+    _calculateDistance();
   }
 }
